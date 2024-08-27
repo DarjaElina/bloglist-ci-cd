@@ -8,6 +8,24 @@ on:
 jobs:
   test_job:
     runs-on: ubuntu-20.04
+
     steps:
-      - name: Say hello
-        run: echo "Hello World!"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (root)
+        run: npm install
+
+      - name: Run ESLint (root)
+        run: npm run eslint
+
+      - name: Install dependencies (frontend)
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Run ESLint (frontend)
+        working-directory: ./frontend
+        run: npm run eslint
+
