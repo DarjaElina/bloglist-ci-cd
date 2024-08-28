@@ -38,7 +38,7 @@ jobs:
       - name: Run Supertest
         run: npm run test
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI}}
+          TEST_MONGODB_URI: ${{ secrets.MONGODB_URI}}
 
       - name: Frontend Build
         run: npm run build:ui
@@ -46,7 +46,7 @@ jobs:
       - name: Run e2e Test
         run: npm run test:e2e
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI}}
+          TEST_MONGODB_URI: ${{ secrets.MONGODB_URI}}
 
 
   # deploy_prod:
