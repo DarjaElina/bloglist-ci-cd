@@ -39,6 +39,7 @@ jobs:
         run: npm run test
         env:
           TEST_MONGODB_URI: ${{ secrets.MONGODB_URI}}
+          SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Frontend Build
         run: npm run build:ui
@@ -47,6 +48,7 @@ jobs:
         run: npm run test:e2e
         env:
           TEST_MONGODB_URI: ${{ secrets.MONGODB_URI}}
+          SECRET: ${{ secrets.JWT_SECRET }}
 
 
   # deploy_prod:
