@@ -8,6 +8,8 @@ on:
 jobs:
   lint_and_test:
     runs-on: ubuntu-20.04
+    container:
+      image: mcr.microsoft.com/playwright:v1.46.1-jammy
     environment: testing
 
     steps:
@@ -47,8 +49,16 @@ jobs:
       - name: Run e2e Test
         run: npm run test:e2e
         env:
+          HOME: /root
           TEST_MONGODB_URI: ${{ secrets.MONGODB_URI}}
           SECRET: ${{ secrets.JWT_SECRET }}
+          
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
 
 
   # deploy_prod:
