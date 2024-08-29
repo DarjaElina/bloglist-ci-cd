@@ -6,11 +6,10 @@ on:
       - main
 
 jobs:
-  lint_and_test:
+  deployment_pipeline:
     runs-on: ubuntu-20.04
     container:
       image: mcr.microsoft.com/playwright:v1.46.1-jammy
-    environment: testing
 
     steps:
       - uses: actions/checkout@v4
@@ -40,7 +39,7 @@ jobs:
       - name: Run Supertest
         run: npm run test
         env:
-          TEST_MONGODB_URI: ${{ secrets.MONGODB_URI}}
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI}}
           SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Frontend Build
@@ -50,7 +49,7 @@ jobs:
         run: npm run test:e2e
         env:
           HOME: /root
-          TEST_MONGODB_URI: ${{ secrets.MONGODB_URI}}
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI}}
           SECRET: ${{ secrets.JWT_SECRET }}
 
       - uses: actions/upload-artifact@v4
@@ -60,17 +59,11 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-
-  deployment:
-    needs: 
-      - lint_and_test
-    runs-on: ubuntu-20.04
-    environment: production
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      - name: Set up Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+  
+      - name: Deploy app
+        run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
