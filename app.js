@@ -21,12 +21,16 @@ mongoose.connect(config.MONGODB_URI)
   })
 
 app.get('/version', (req, res) => {
-  res.send('3')
+  res.send('4')
 })
 
 app.get('/health', (req, res) => {
   res.send('ok')
 })
+
+const test = () => {
+  console.log('breaking the build'
+}
 
 
 app.use(cors())
