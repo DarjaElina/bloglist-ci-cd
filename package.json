@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node index.js",
+    "start": "node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "test": "cross-env NODE_ENV=test node --test",
     "eslint": "eslint .",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.6.0",
+    "@flydotio/dockerfile": "^0.5.8",
     "@playwright/test": "^1.46.1",
     "@stylistic/eslint-plugin-js": "^2.3.0",
     "@types/node": "^22.5.0",
