@@ -21,7 +21,7 @@ mongoose.connect(config.MONGODB_URI)
   })
 
 app.get('/version', (req, res) => {
-  res.send('4')
+  res.send('5')
 })
 
 app.get('/health', (req, res) => {
