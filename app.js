@@ -28,10 +28,6 @@ app.get('/health', (req, res) => {
   res.send('ok')
 })
 
-const test = () => {
-  console.log('breaking the build'
-}
-
 
 app.use(cors())
 app.use(express.static('dist'))
